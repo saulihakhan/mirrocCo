@@ -1,0 +1,2226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mirroc.home</title>
+  <!-- Bootstrap Icons CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+
+  <style>
+    @import url('https://fonts.cdnfonts.com/css/canela-text-trial');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    html,
+    body {
+      height: 100%;
+
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fdfdfd;
+    }
+
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+    }
+
+    .bg-wrapper {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+    }
+
+    .blur-bg,
+    .clear-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('bjb.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .blur-bg {
+      filter: blur(12px);
+      z-index: 1;
+    }
+
+    .clear-bg {
+      z-index: 2;
+      mask-image: radial-gradient(circle at center, black 0%, black 0%, transparent 100%);
+      -webkit-mask-image: radial-gradient(circle at center, black 0%, black 0%, transparent 100%);
+      mask-repeat: no-repeat;
+      -webkit-mask-repeat: no-repeat;
+      mask-position: center;
+      -webkit-mask-position: center;
+      mask-size: 0% 0%;
+      -webkit-mask-size: 0% 0%;
+      transition: mask-size 4s ease-out, -webkit-mask-size 4s ease-out;
+    }
+
+    .clear-bg.revealed {
+      mask-size: 300% 300%;
+      -webkit-mask-size: 300% 300%;
+    }
+
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.3);
+      z-index: 3;
+    }
+
+    .hero-text {
+      position: absolute;
+      top: 75%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 4;
+      text-align: center;
+      opacity: 0;
+    }
+
+    .hero h1 {
+      font-family: 'canela trial', serif;
+      font-size: 6rem;
+      color: white;
+      letter-spacing: 2px;
+    }
+
+    .hero h1 span {
+      opacity: 0;
+      display: inline-block;
+      animation: fadeLetter 0.4s forwards;
+    }
+
+    @keyframes fadeLetter {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .subheading {
+      font-size: 1.4rem;
+      color: #e0e0e0;
+      margin-top: 8px;
+      opacity: 0;
+    }
+
+    @keyframes fadeSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeSlideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .subheading.animate {
+      animation: fadeSlideUp 1.2s ease forwards;
+    }
+
+    .nav-wrapper.animate {
+      animation: fadeSlideDown 1.2s ease forwards;
+    }
+
+    .nav-wrapper {
+      position: absolute;
+      top: 20px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 5vw;
+      z-index: 4;
+      opacity: 0;
+    }
+
+    .logo img {
+      height: 60px;
+      transition: filter 0.3s ease, transform 0.3s ease;
+    }
+
+    .logo img:hover {
+      filter: brightness(1.2);
+      transform: scale(1.1);
+    }
+
+    .nav-center {
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-link-wrapper {
+      transition: transform 0.3s ease;
+      position: relative;
+    }
+
+    .nav-link-wrapper a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 500;
+      position: relative;
+      padding-bottom: 4px;
+      transition: color 0.3s ease;
+    }
+
+    .nav-link-wrapper a::after {
+      content: '';
+      position: absolute;
+      width: 0%;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: #aad1f2;
+      transition: width 0.3s;
+    }
+
+    .nav-link-wrapper a:hover {
+      color: #aad1f2;
+    }
+
+    .nav-link-wrapper a:hover::after {
+      width: 100%;
+    }
+
+    .categories-wrapper {
+      position: relative;
+      margin-left: 20px;
+    }
+
+    .categories-wrapper .signup {
+      position: relative;
+      background: rgba(255, 255, 255, 0.25);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 30px;
+      font-weight: 600;
+      border: none;
+      backdrop-filter: blur(6px);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow: hidden;
+      transition: background 0.3s, transform 0.3s, border 0.3s;
+    }
+
+    .categories-wrapper .signup::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -75%;
+      width: 150%;
+      height: 100%;
+      background: linear-gradient(120deg,
+          rgba(255, 255, 255, 0) 0%,
+          rgba(255, 255, 255, 0.5) 50%,
+          rgba(255, 255, 255, 0) 100%);
+      transform: skewX(-20deg);
+      transition: none;
+      pointer-events: none;
+    }
+
+    .categories-wrapper .signup:hover::before {
+      animation: shine 1s ease forwards;
+    }
+
+    .categories-wrapper .signup:hover {
+      background: rgba(255, 255, 255, 0.4);
+      transform: scale(1.05);
+      border: 2px solid white;
+    }
+
+    @keyframes shine {
+      0% {
+        left: -75%;
+      }
+
+      100% {
+        left: 125%;
+      }
+    }
+
+    .arrow {
+      display: inline-block;
+      width: 0;
+      height: 0;
+      margin-left: 4px;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 6px solid white;
+      transition: transform 0.3s;
+    }
+
+    .categories-wrapper .signup:hover .arrow {
+      transform: rotate(180deg);
+    }
+
+    .dropdown {
+      position: absolute;
+      top: 110%;
+      right: 0;
+      background-color: white;
+      border-radius: 14px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 10px 0;
+      display: none;
+      z-index: 10;
+      min-width: 200px;
+      margin-top: 10px;
+    }
+
+    .dropdown ul {
+      list-style: none;
+    }
+
+    .dropdown ul li a {
+      display: block;
+      padding: 10px 20px;
+      font-size: 1rem;
+      color: #333;
+      text-decoration: none;
+      transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+      border-radius: 8px;
+      margin: 2px 8px;
+    }
+
+    .dropdown ul li a:hover {
+      background-color: #e0f8fc;
+      color: #78b8ec;
+      transform: translateX(4px);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .dropdown.show {
+      display: block;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      cursor: pointer;
+    }
+
+    .hamburger div {
+      width: 25px;
+      height: 3px;
+      background-color: white;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 10vw;
+      }
+
+      .subheading {
+        font-size: 1rem;
+      }
+
+      .nav-center {
+        display: none;
+        flex-direction: column;
+        background-color: rgba(0, 0, 0, 0.85);
+        position: absolute;
+        top: 80px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        padding: 1rem 0;
+      }
+
+      .nav-center.active {
+        display: flex;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .categories-wrapper {
+        display: none;
+      }
+    }
+
+    .cta-button {
+      margin-top: 20px;
+      padding: 10px 24px;
+      font-size: 1rem;
+      font-weight: 500;
+      background-color: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 10px;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: background 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .cta-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(120deg,
+          rgba(170, 209, 255, 0) 0%,
+          rgba(170, 209, 255, 0.6) 50%,
+          rgba(170, 209, 255, 0) 100%);
+      transform: skewX(-20deg);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .cta-button:hover::before {
+      animation: shine 1s ease forwards;
+    }
+
+    .cta-button:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+      transform: translateY(5px);
+      border-color: rgba(255, 255, 255, 0.6);
+      color: white;
+    }
+
+    .cta-button span {
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-button.animate {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    /* trending  */
+
+    button {
+      font-family: 'ALISEO', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Smart Mirror styles */
+    .intro-section {
+      text-align: center;
+      margin-bottom: 2.5rem;
+      position: relative;
+      padding: 0 1rem;
+      padding-top: 70px;
+      z-index: 1;
+    }
+
+    .intro-section h1 {
+      font-size: 1.75rem;
+      color: #aad1f2;
+      margin-bottom: 0.6rem;
+      line-height: 1.3;
+      max-width: 90%;
+      margin-left: auto;
+      margin-right: auto;
+      font-family: 'ALISEO', sans-serif;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .intro-section p {
+      color: #555;
+      font-size: 0.85rem;
+      max-width: 90%;
+      margin: 0 auto;
+      font-family: 'Graphik', sans-serif;
+    }
+
+    /* Responsive Intro Images */
+    .intro-images {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .intro-images img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      position: absolute;
+      transition: all 0.3s ease;
+    }
+
+    .intro-images img:nth-child(1) {
+      left: 5%;
+      top: 20%;
+    }
+
+    .intro-images img:nth-child(2) {
+      left: 15%;
+      top: 50%;
+    }
+
+    .intro-images img:nth-child(3) {
+      right: 15%;
+      top: 45%;
+    }
+
+    .intro-images img:nth-child(4) {
+      right: 5%;
+      top: 20%;
+    }
+
+    @media (min-width: 480px) {
+      .intro-images img {
+        width: 60px;
+        height: 60px;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .intro-images img {
+        width: 70px;
+        height: 70px;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .intro-images img {
+        width: 80px;
+        height: 80px;
+      }
+    }
+
+    /* Hide on very small screens to avoid layout clash */
+    @media (max-width: 420px) {
+      .intro-images {
+        display: none;
+      }
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      border-radius: 20px;
+      overflow: hidden;
+      padding: 20px;
+      gap: 30px;
+      align-items: stretch;
+      justify-content: center;
+    }
+
+    .left-section,
+    .right-section {
+      flex: 1 1 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    @media (min-width: 768px) {
+
+      .left-section,
+      .right-section {
+        flex: 1;
+      }
+    }
+
+    .feature-heading {
+      padding-top: 3rem;
+      padding-left: 1rem;
+      text-align: center;
+    }
+
+    @media (min-width: 768px) {
+      .feature-heading {
+        padding-top: 7rem;
+        padding-left: 8rem;
+        text-align: left;
+      }
+    }
+
+    .feature-heading h1 {
+      font-size: 1.6rem;
+      color: black;
+      margin-bottom: 5px;
+      padding-top: 20px;
+      line-height: 1.2;
+      font-family: 'Graphik', sans-serif;
+      font-weight: bolder;
+    }
+
+    .feature-heading h1 .smart {
+
+      padding: 0 8px;
+      border-radius: 6px;
+      color: #aad1f2;
+      font-weight: bold;
+    }
+
+    .feature-heading p {
+      font-size: 0.85rem;
+      color: #555;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      justify-content: center;
+      padding: 2rem 1rem 5rem;
+    }
+
+    @media (min-width: 600px) {
+      .features {
+        grid-template-columns: repeat(4, auto);
+        padding-left: 2rem;
+      }
+    }
+
+    .feature {
+      border-radius: 5px;
+      width: 100px;
+      height: 100px;
+      padding: 10px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .feature i {
+      margin-bottom: 5px;
+      display: block;
+    }
+
+    .feature h4 {
+      font-size: 0.8em;
+      color: black;
+      margin-bottom: 2px;
+    }
+
+    .feature p {
+      font-size: 0.65em;
+      color: #555;
+      text-align: center;
+    }
+
+    .video-box {
+      background-color: #eef6f2;
+      border-radius: 20px;
+      position: relative;
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 90%;
+      max-width: 350px;
+      margin: 0 auto;
+    }
+
+    video {
+      aspect-ratio: 3 / 4;
+      width: 100%;
+      max-width: 400px;
+      height: auto;
+      border-radius: 12px;
+      display: block;
+    }
+
+    /* Optional: Center the container content on small screens */
+    @media (max-width: 767px) {
+      .container {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+
+    /* Slider Styles */
+    .collection {
+      overflow: hidden;
+      padding: 20px 0;
+      background-color: #fff;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: clamp(28px, 5vw, 45px);
+      font-weight: 400;
+      margin: 30px 0;
+      font-family: 'ALISEO', sans-serif;
+      color: black;
+      padding: 10px 0;
+    }
+
+    .slider-container {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      padding: 0 20px;
+      margin: 0 auto;
+    }
+
+    .slider-track {
+      display: flex;
+      gap: 20px;
+      animation: slideAnimation 60s linear infinite;
+      width: fit-content;
+    }
+
+    .slide {
+      flex: 0 0 auto;
+      position: relative;
+      width: clamp(200px, 40vw, 260px);
+      transition: transform 0.4s ease, filter 0.4s ease;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .slide:hover {
+      transform: scale(1.05);
+      filter: brightness(1.1);
+    }
+
+    .slide a {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .slide img {
+      width: 100%;
+      height: clamp(320px, 60vw, 420px);
+      object-fit: cover;
+      border-radius: 25px;
+      display: block;
+    }
+
+    .slide-text {
+      position: absolute;
+      bottom: 15px;
+      left: 15px;
+      color: white;
+      font-size: clamp(14px, 2.5vw, 18px);
+      font-weight: bold;
+      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+    }
+
+    @keyframes slideAnimation {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(calc(-50% - 10px));
+      }
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 1024px) {
+      .slider-container {
+        padding: 0 15px;
+      }
+
+      .slide {
+        width: clamp(180px, 35vw, 220px);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .slider-container {
+        padding: 0 10px;
+      }
+
+      .slide {
+        width: clamp(160px, 45vw, 200px);
+      }
+
+      .slide img {
+        height: clamp(280px, 55vw, 360px);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .slide {
+        width: clamp(140px, 40vw, 180px);
+      }
+
+      .slide img {
+        height: clamp(240px, 50vw, 320px);
+      }
+
+      .slide-text {
+        bottom: 10px;
+        left: 10px;
+        font-size: clamp(12px, 4vw, 16px);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .slider-track {
+        animation-duration: 120s;
+      }
+    }
+
+    /* sustainability */
+    .about-section {
+      margin-top: 4rem;
+      padding: 4rem 2rem;
+      background: linear-gradient(135deg, #1a1a1a, #0f0f0f, #000000);
+      color: #fff;
+    }
+
+    .about-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: space-between;
+    }
+
+    .about-text {
+      flex: 1 1 400px;
+      max-width: 600px;
+    }
+
+    .about-subtitle {
+      color: #aad1f2;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .about-heading {
+      font-size: 2.5rem;
+      line-height: 1.3;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .about-description {
+      color: #aaa;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    .about-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat {
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+
+    .stat span {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: normal;
+      color: #ccc;
+    }
+
+    .contact-btn {
+      display: inline-block;
+      /* Important for <a> */
+      background-color: #aad1f2;
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      text-decoration: none;
+      /* Remove underline from <a> */
+      font-size: 1rem;
+      transition: background 0.3s ease;
+    }
+
+    .contact-btn:hover {
+      background-color: #89bbe4;
+    }
+
+    /* Image Grid */
+    .image-grid {
+      flex: 1 1 400px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      grid-auto-rows: 180px;
+      gap: 1rem;
+    }
+
+    .grid-main {
+      grid-column: span 2;
+      grid-row: span 2;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+
+
+    .image-grid img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .about-heading {
+        font-size: 2rem;
+      }
+
+      .about-container {
+        flex-direction: column;
+      }
+
+      .grid-main {
+        grid-column: span 2;
+        grid-row: span 1;
+      }
+    }
+
+    /* footer */
+    /* footer */
+    .newsletter {
+      background: linear-gradient(135deg, #434343, #000000);
+      color: white;
+      padding: 20px 30px;
+      border-radius: 12px;
+      margin: 60px 20px 40px 20px;
+      /* Only 10px margin on left & right */
+    }
+
+    .newsletter h2 {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .newsletter-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .newsletter-form input[type="email"] {
+      padding: 10px 16px;
+      border-radius: 20px;
+      border: none;
+      width: 220px;
+    }
+
+    .newsletter-form button {
+      padding: 10px 18px;
+      border: none;
+      background-color: white;
+      color: black;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    .newsletter-form button:hover {
+      background-color: black;
+      color: white;
+      border: 1px solid white;
+    }
+
+    .newsletter-description {
+      max-width: 380px;
+      font-size: 14px;
+      line-height: 1.6;
+      text-align: right;
+    }
+
+    footer {
+      width: 100%;
+      /* full width */
+      padding: 20px 30px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      border-top: 1px solid #ddd;
+      font-size: 14px;
+      box-sizing: border-box;
+      /* ensure padding doesn't add to width */
+    }
+
+
+
+    .footer-section {
+      margin-bottom: 20px;
+    }
+
+    .footer-section h4 {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-section ul li {
+      margin-bottom: 6px;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .social-icons a {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      color: white;
+      font-size: 16px;
+      text-decoration: none;
+      transition: transform 0.3s ease;
+    }
+
+    /* Specific brand colors */
+    .social-icons a.twitter {
+      background-color: #1da1f2;
+    }
+
+    .social-icons a.facebook {
+      background-color: #1877f2;
+    }
+
+    .social-icons a.instagram {
+      background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%,
+          #fd5949 45%, #d6249f 60%, #285AEB 90%);
+      color: white;
+    }
+
+    .social-icons a.linkedin {
+      background-color: #0077b5;
+    }
+
+    .social-icons a:hover {
+      transform: scale(1.1);
+    }
+
+
+    .footer-bottom {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 30px;
+      border-top: 1px solid #eee;
+      padding-top: 15px;
+      font-size: 13px;
+      color: #666;
+      box-sizing: border-box;
+    }
+
+    .footer-bottom a {
+      color: #666;
+      text-decoration: none;
+      margin-left: 12px;
+      transition: color 0.3s ease;
+    }
+
+    .footer-bottom a:hover {
+      color: #000;
+      text-decoration: underline;
+    }
+
+    /* Responsive: stack on small screens */
+    @media (max-width: 768px) {
+      .footer-bottom {
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-start;
+        font-size: 12px;
+      }
+
+      .footer-bottom span:last-child {
+        margin-left: 0;
+      }
+
+      .footer-bottom a {
+        margin-left: 0;
+        margin-right: 12px;
+      }
+    }
+
+    .footer-section ul li a {
+      color: inherit;
+      /* Inherit text color from parent */
+      text-decoration: none;
+      /* Remove underline */
+      display: block;
+      /* Makes the entire li area clickable */
+      width: 100%;
+      height: 100%;
+      transition: filter 0.3s ease, transform 0.3s ease;
+    }
+
+    .footer-section ul li a:hover {
+      transform: scale(1.1);
+      color: #000000;
+      /* Optional: hover effect */
+    }
+
+    /* FAQ */
+    /* Google Font */
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400&display=swap');
+
+    /* Modal container */
+    .mirroc-modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
+    }
+
+    /* Modal content box */
+    .mirroc-modal-content {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 35px 30px;
+      width: 90%;
+      max-width: 600px;
+      margin: 8% auto;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      animation: fadeInSlide 0.4s ease;
+      font-family: 'Poppins', sans-serif;
+      color: #222;
+    }
+
+    @keyframes fadeInSlide {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Header */
+    .mirroc-modal-content h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Close button */
+    .close {
+      float: right;
+      font-size: 24px;
+      font-weight: 400;
+      color: #888;
+      cursor: pointer;
+    }
+
+    /* FAQ items */
+    .faq-item {
+      border-bottom: 1px solid #eee;
+      padding: 15px 0;
+    }
+
+    .faq-question {
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+    }
+
+    .faq-question::after {
+      content: "\f4ad";
+      font-family: 'bootstrap-icons';
+      position: absolute;
+      right: 0;
+      font-size: 16px;
+      color: #666;
+      transition: transform 0.3s ease;
+    }
+
+    .faq-question.active::after {
+      content: "\f2ea";
+    }
+
+    .faq-answer {
+      display: none;
+      margin-top: 10px;
+      color: #555;
+      font-size: 15px;
+      line-height: 1.6;
+      animation: fadeInAnswer 0.3s ease;
+    }
+
+    @keyframes fadeInAnswer {
+      from {
+        opacity: 0;
+        max-height: 0;
+      }
+
+      to {
+        opacity: 1;
+        max-height: 500px;
+      }
+    }
+
+
+
+    /* diy */
+    .fleet-section {
+      min-height: 100vh;
+      padding: 2rem 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      will-change: opacity, transform;
+    }
+
+    .fleet-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .fleet-section.out {
+      opacity: 0;
+      transform: translateY(-50px);
+    }
+
+    .fleet-header {
+      text-align: center;
+    }
+
+    .fleet-header h2 {
+      font-size: 2.5rem;
+      margin: 1rem 0 0.5rem;
+    }
+
+    .fleet-header p {
+      max-width: 600px;
+      margin: 0 auto 1rem;
+      color: #555;
+    }
+
+    .fleet-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      max-width: 1200px;
+      width: 100%;
+      margin-top: 2rem;
+      justify-content: center;
+    }
+
+    .fleet-card {
+      position: relative;
+      width: 100%;
+      max-width: 280px;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      border-radius: 12px;
+      cursor: pointer;
+      background: #000;
+      transition: transform 0.4s ease;
+    }
+
+    .fleet-card:hover {
+      transform: scale(1.03);
+    }
+
+    .fleet-details a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .fleet-details a:hover {
+
+      text-decoration: underline;
+    }
+
+    .fleet-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .fleet-card:hover img {
+      transform: scale(1.08);
+    }
+
+    .fleet-details {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 0%;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(14px);
+      color: #fff;
+      padding: 1.5rem 1rem;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: height 0.6s ease, opacity 0.6s ease, padding 0.6s ease;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .fleet-card:hover .fleet-details {
+      height: 50%;
+      opacity: 1;
+      pointer-events: auto;
+      padding: 2rem 1rem;
+    }
+
+    .fleet-footer {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .fleet-footer a {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s ease;
+      backdrop-filter: blur(6px);
+    }
+
+    .fleet-footer a:hover {
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+
+    @media (max-width: 600px) {
+      .fleet-header h2 {
+        font-size: 2rem;
+      }
+
+      .fleet-card {
+        max-width: 100%;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .newsletter-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .newsletter-description {
+        text-align: left;
+        max-width: 100%;
+        margin-top: 15px;
+      }
+
+      .newsletter-form {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+      }
+
+      .newsletter-form input[type="email"],
+      .newsletter-form button {
+        width: 100%;
+        max-width: 100%;
+      }
+
+      .newsletter-form button {
+        margin-top: 10px;
+      }
+    }
+
+
+
+
+    /* why us  */
+    .why-us-section {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      background: url(mirr\ \(1\).jpg) center/cover no-repeat;
+      overflow: hidden;
+    }
+
+    .why-us-section.fade-in {
+      animation: fadeInUp 1s ease forwards;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-text-why {
+      position: absolute;
+      top: 8%;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      text-align: center;
+      font-size: clamp(1.5rem, 4vw, 3rem);
+      text-transform: uppercase;
+      font-weight: bold;
+      z-index: 5;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    }
+
+    .hotspot {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid white;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.2rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      z-index: 10;
+    }
+
+    .hotspot.rotate {
+      transform: rotate(45deg);
+    }
+
+    .info-box {
+      position: absolute;
+      max-width: 240px;
+      padding: 14px 18px;
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 12px;
+      font-size: 0.95rem;
+      color: #000;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      z-index: 8;
+      pointer-events: none;
+      line-height: 1.4;
+    }
+
+    .info-box strong {
+      font-weight: 700;
+      font-size: 1.05rem;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .info-box.show {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    svg.lines {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    line.info-line {
+      stroke: white;
+      stroke-width: 2;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    line.info-line.show {
+      opacity: 1;
+    }
+
+    @media (max-height: 700px),
+    (max-width: 600px) {
+      .info-box {
+        font-size: 0.85rem;
+        max-width: 90%;
+        padding: 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="hero">
+    <div class="bg-wrapper">
+      <div class="blur-bg"></div>
+      <div class="clear-bg" id="circleReveal"></div>
+    </div>
+    <div class="overlay"></div>
+
+    <div class="nav-wrapper" id="navWrapper">
+      <div class="logo">
+        <img src="logo.png" alt="Logo" />
+      </div>
+      <div class="hamburger" id="hamburger">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <div class="nav-center" id="navLinks">
+        <div class="nav-link-wrapper"><a href="About.html">Know us </a></div>
+        <div class="nav-link-wrapper"><a href="contact.html">FInd us </a></div>
+        <div class="nav-link-wrapper"><a href="#Sustainability">Sustainability</a></div>
+        <div class="nav-link-wrapper"><a href="#WhySection">Why us </a></div>
+        <div class="nav-link-wrapper"><a href="#newsletter">Newsletter </a></div>
+
+      </div>
+      <div class="categories-wrapper">
+        <button class="signup" id="categoryBtn">Categories <span class="arrow"></span></button>
+        <div class="dropdown" id="categoryDropdown">
+          <ul>
+            <li><a href="/re/bedroom.html">Bedroom</a></li>
+            <li><a href="/re/bathrooom.html">Bathroom</a></li>
+            <li><a href="/re/livingroom.html">Living Room</a></li>
+            <li><a href="#closet">Closet Room</a></li>
+            <li><a href="/re/hallway.html">Hallway</a></li>
+            <li><a href="re/dining.html">Dining Room</a></li>
+            <li><a href="/re/entryway.html">Entryway</a></li>
+            <li><a href="/re/home-office.html">Home Office</a></li>
+            <li><a href="/re/vanity.html">Vanity</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-text" id="heroText">
+      <h1 id="mainHeading"></h1>
+      <p class="subheading" id="subheading">"Where Reflection Meets Perfection"</p>
+      <a href="#slider"><button class="cta-button"><span>SHOP NOW</span></button></a>
+    </div>
+  </div>
+  <section>
+    <div class="intro-section" id="trending">
+      <div class="intro-images">
+        <img src="CIRCLE1.jpg" alt="Image 1" />
+        <img src="CIRCLE2.jpg" alt="Image 2" />
+        <img src="CIRCLE3.jpeg" alt="Image 3" />
+        <img src="CIRCLE4.jpeg" alt="Image 4" />
+      </div>
+      <h1>Trending Now</h1>
+      <p>Smart mirror technology that informs,<br />assists, and inspires—right from your reflection.</p>
+    </div>
+
+    <div class="container">
+      <div class="left-section">
+        <div class="feature-heading">
+          <h1>Discover the <br><span class="smart">Smart Mirrors</span> <br>That Enhance Your Daily <br>Life </h1>
+          <p>From voice control to facial recognition, our smart mirrors are built to do more than just show your
+            reflection. Experience seamless integration with your daily routine—adjust lighting with a swipe,
+            receive weather updates as you brush, or track wellness goals right from your mirror. Built with
+            premium materials and packed with intuitive features, each mirror is designed to be your personal
+            assistant, stylist, and motivator—all in one sleek surface.</p>
+        </div>
+        <div class="features">
+          <div class="feature"
+            style="border-top-right-radius: 30px; border-bottom-left-radius: 30px; background-color: #d9e6f4;">
+            <i class="bi bi-droplet" style="font-size: 32px;"></i>
+            <h4>Waterproof</h4>
+            <p>Moisture resistant</p>
+          </div>
+          <div class="feature"
+            style="border: 3px solid #d9e6f4 ; background-color: white; border-top-right-radius: 30px; border-bottom-left-radius: 30px;">
+            <i class="bi bi-fingerprint" style="font-size: 32px;"></i>
+            <h4>Touch</h4>
+            <p>No buttons</p>
+          </div>
+          <div class="feature"
+            style="border-top-right-radius: 30px; border-bottom-left-radius: 30px ; background-color: #d9e6f4;">
+            <i class="bi bi-camera" style="font-size: 32px;"></i>
+            <h4>Camera</h4>
+            <p>Face tracking</p>
+          </div>
+          <div class="feature"
+            style="border: 3px solid #d9e6f4 ; background-color: white; border-top-right-radius: 30px; border-bottom-left-radius: 30px;">
+            <i class="bi bi-eyeglasses" style="font-size: 32px;"></i>
+            <h4>Anti-glare</h4>
+            <p>Bright light OK</p>
+          </div>
+        </div>
+      </div>
+      <div class="right-section">
+        <div class="video-box">
+          <video src="video.mp4" autoplay muted loop></video>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- slider -->
+  <section class="collection" id="slider">
+    <h2 class="section-title">Shop by Space</h2>
+    <div class="slider-container">
+      <div class="slider-track">
+        <!-- Original 9 images with updated labels -->
+        <div class="slide"><a href="/re/bedroom.html"><img src="slider/bedroom mirror.jpg" alt="1"></a>
+          <div class="slide-text">Bedroom</div>
+        </div>
+        <div class="slide"><a href="re/bathrooom.html"><img src="slider/bathroom.jpeg" alt="2"></a>
+          <div class="slide-text">Bathroom</div>
+        </div>
+        <div class="slide"><a href="#"><img src="slider/closet.jpg" alt="3"></a>
+          <div class="slide-text">Closet Room</div>
+        </div>
+        <div class="slide"><a href="re/hallway.html"><img src="slider/hallway mirrosss.jpg" alt="4"></a>
+          <div class="slide-text">Hallway Mirror</div>
+        </div>
+        <div class="slide"><a href="re/dining.html"><img src="slider/Dining mirror.jpg" alt="5"></a>
+          <div class="slide-text">Dining Mirror</div>
+        </div>
+        <div class="slide"><a href="re/livingroom.html"><img src="slider/drawing room mirrors.jpg" alt="6"></a>
+          <div class="slide-text">Drawing Room</div>
+        </div>
+        <div class="slide"><a href="re/vanity.html"><img src="slider/vanity mirrors 12.jpg" alt="7"></a>
+          <div class="slide-text">Vanity Mirrors</div>
+        </div>
+        <div class="slide"><a href="re/entryway.html"><img src="slider/Entryway-mirror.jpg" alt="8"></a>
+          <div class="slide-text">Entryway Mirrors</div>
+        </div>
+        <div class="slide"><a href="re/home-office.html"><img src="slider/home office.jpeg" alt="9"></a>
+          <div class="slide-text">Home Office</div>
+        </div>
+
+        <!-- Repeat the same images for seamless scroll -->
+        <div class="slide"><a href="re/bedroom.html"><img src="slider/bedroom mirror.jpg" alt="1"></a>
+          <div class="slide-text">Bedroom</div>
+        </div>
+        <div class="slide"><a href="re/bathrooom.html"><img src="slider/bathroom.jpeg" alt="2"></a>
+          <div class="slide-text">Bathroom</div>
+        </div>
+        <div class="slide"><a href="#"><img src="slider/closet.jpg" alt="3"></a>
+          <div class="slide-text">Closet Room</div>
+        </div>
+        <div class="slide"><a href="re/hallway.html"><img src="slider/hallway mirrosss.jpg" alt="4"></a>
+          <div class="slide-text">Hallway Mirror</div>
+        </div>
+        <div class="slide"><a href="re/dining.html"><img src="slider/Dining mirror.jpg" alt="5"></a>
+          <div class="slide-text">Dining Mirror</div>
+        </div>
+        <div class="slide"><a href="re/livingroom.html"><img src="slider/drawing room mirrors.jpg" alt="6"></a>
+          <div class="slide-text">Drawing Room</div>
+        </div>
+        <div class="slide"><a href="re/vanity.html"><img src="slider/vanity mirrors 12.jpg" alt="7"></a>
+          <div class="slide-text">Vanity Mirrors</div>
+        </div>
+        <div class="slide"><a href="re/entryway.html"><img src="slider/Entryway-mirror.jpg" alt="8"></a>
+          <div class="slide-text">Entryway Mirrors</div>
+        </div>
+        <div class="slide"><a href="re/home-office.html"><img src="slider/home office.jpeg" alt="9"></a>
+          <div class="slide-text">Home Office</div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Sustainability -->
+    <section class="about-section" id="Sustainability">
+      <div class="about-container">
+        <!-- Left Text Content -->
+        <div class="about-text" data-aos="fade-right">
+          <p class="about-subtitle">Sustainability </p>
+          <h2 class="about-heading">
+            Crafted with Care <br />
+            for the Planet <br />
+
+          </h2>
+          <p class="about-description">
+            All products are made from sustainably sourced wood, ensuring minimal impact on forests.
+            We prioritize eco-friendly materials and ethical production processes in every step.
+            From packaging to delivery, we reduce carbon footprint while maintaining high quality.
+          </p>
+          <div class="about-stats" data-aos="fade-up" data-aos-delay="200">
+            <div class="stat">100%<span>FSC® Certified Wood</span></div>
+            <div class="stat">80%<span>Lower Carbon Footprint</span></div>
+            <div class="stat">90%<span>Biodegradable Components</span></div>
+          </div>
+          <a href="contact.html" class="contact-btn" data-aos="zoom-in" data-aos-delay="400">Contact Us</a>
+        </div>
+
+        <!-- Right Image Grid -->
+        <div class="image-grid" data-aos="fade-left" data-aos-delay="100">
+          <img src="WOOD1.jpeg" alt="Main" class="grid-main" />
+          <img src="WOOD2.jpeg" alt="Alt 1" />
+          <img src="WOOD3.jpeg" alt="Alt 2" />
+          <img src="WOOD4.jpeg" alt="Alt 3" />
+          <img src="wood5.jpeg" alt="Alt 4" />
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- diy -->
+    <section class="fleet-section">
+      <div class="fleet-header">
+        <small>Diy Mirrors</small>
+        <h2>Limited Products</h2>
+        <p>Looking to add some character to your space? Here are three easy and creative DIY mirror ideas you can try at
+          home. Each one brings a unique touch and is perfect for adding personality to any room.
+
+        </p>
+      </div>
+
+      <div class="fleet-grid">
+        <div class="fleet-card">
+          <img src="diy1.jpeg" alt="Kawaii Treats Mirror" />
+          <div class="fleet-details">
+            <strong><a href="https://www.instagram.com/reel/C74EyAqy0FH/">Kawaii Treats Mirror</a></strong>
+          </div>
+        </div>
+
+        <div class="fleet-card">
+          <img src="diy2.jpeg" alt="Rainbow Bloom Mirror" />
+          <div class="fleet-details">
+            <strong><a href="https://www.instagram.com/p/DEVq8yJSBq0/?locale=zh_tw">Rainbow Bloom Mirror</a></strong>
+          </div>
+        </div>
+        <div class="fleet-card">
+          <img src="diy3.jpeg" alt="Fairy Vine Mirror" />
+          <div class="fleet-details">
+            <strong><a
+                href="https://www.daraz.pk/products/handmade-flower-deisgn-with-clay-for-mirror-the-trending-home-mirror-decoration-for-home-decor-living-bed-room-and-for-gifts-piece-item-and-wall-decore-i421200365-s2182518389.html?l">Fairy
+                Vine Mirror</a></strong>
+          </div>
+        </div>
+
+        <div class="fleet-card">
+          <img src="diy5.jpeg" alt="Berry Mini Mirror" />
+          <div class="fleet-details">
+            <strong><a href="https://in.pinterest.com/pin/polymer-clay--74450200084188128/">Berry Mini
+                Mirror</a></strong>
+          </div>
+        </div>
+
+        <div class="fleet-card">
+          <img src="dy6.jpeg" alt="Earthy Bead Mirror" />
+          <div class="fleet-details">
+            <strong><a href="https://in.pinterest.com/pin/1063060687059181285/">Earthy Bead Mirror</a></strong>
+          </div>
+        </div>
+
+        <div class="fleet-card">
+          <img src="diy7.jpeg" alt="Braided Sky Mirror" />
+          <div class="fleet-details">
+            <strong><a
+                href="https://za.shein.com/1pc-Cream-Distressed-Makeup-Mirror-In-Round-Shape-With-Irregular-Design-For-Touch-,-Foldable-Desk-Stand-Princess-Mirror,-Comes-In-Exquisite-Cardboard-Packaging-p-37762019.html">Braided
+                Sky Mirror</a></strong>
+          </div>
+        </div>
+
+
+
+
+        <div class="fleet-footer">
+          <a href="/re/bedroom.html">Explore more →</a>
+        </div>
+    </section>
+
+    <!-- why us  -->
+    <section class="why-us-section" id="WhySection">
+      <div class="hero-text-why">
+        WHY CHOOSE <br /> MIRROC
+      </div>
+
+      <!-- Hotspot Buttons -->
+      <div class="hotspot" id="hs1" style="top: 60%; left: 10%;">+</div>
+      <div class="hotspot" id="hs2" style="top: 40%; left: 30%;">+</div>
+      <div class="hotspot" id="hs3" style="top: 75%; left: 50%;">+</div> <!-- moved up from 88% -->
+      <div class="hotspot" id="hs4" style="top: 30%; left: 70%;">+</div>
+      <div class="hotspot" id="hs5" style="top: 15%; left: 85%;">+</div>
+
+      <!-- Info Boxes -->
+      <div class="info-box" id="info1" style="top: 48%; left: 18%;">
+        <strong>Premium Quality</strong>
+        Our mirrors are crafted with the finest materials for long-lasting clarity and strength.
+      </div>
+
+      <div class="info-box" id="info2" style="top: 28%; left: 38%;">
+        <strong>Custom Designs</strong>
+        Choose from a variety of modern or classic designs with custom sizing options.
+      </div>
+
+      <div class="info-box" id="info3" style="top: 85%; left: 60%;"> <!-- Adjusted so it doesn't crop -->
+        <strong>Shatter-Resistant</strong>
+        Safety-backed glass provides peace of mind for homes and public spaces.
+      </div>
+
+      <div class="info-box" id="info4" style="top: 40%; left: 70%;">
+        <strong>Eco-Friendly</strong>
+        Built using recycled materials and sustainable practices.
+      </div>
+
+      <div class="info-box" id="info5" style="top: 5%; left: 70%;">
+        <strong>Customer Support</strong>
+        Friendly service and fast delivery from order to installation.
+      </div>
+
+      <!-- SVG Lines -->
+      <svg class="lines">
+        <line id="line1" class="info-line" />
+        <line id="line2" class="info-line" />
+        <line id="line3" class="info-line" />
+        <line id="line4" class="info-line" />
+        <line id="line5" class="info-line" />
+      </svg>
+    </section>
+
+
+    <!-- Newsletter Signup Section -->
+    <div class="newsletter" id="newsletter">
+      <h2>Ready to Get Our <br>New Stuff?</h2>
+      <div class="newsletter-row">
+        <div class="newsletter-form">
+          <input id="emailInput" type="email" placeholder="Your Email" required />
+          <button type="button" onclick="sendEmail()">Send</button>
+          <p id="error" style="color: red; display: none;">Invalid email</p>
+        </div>
+
+        <div class="newsletter-description">
+          <strong>Stuffs for Homes and Needs</strong><br />
+          We’ll listen to your needs, identify the best approach, and then choose a bespoke suitable mirror that’s right
+          for you.
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+      <div class="footer-section">
+        <h4>About</h4>
+        <ul>
+          <li><a href="About.html">About us</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="#" id="faqFooter">FAQ</a></li>
+
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4>Social Media</h4>
+        <div class="social-icons">
+          <a href="https://twitter.com/" class="twitter" target="_blank" title="Twitter">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="https://www.facebook.com/" class="facebook" target="_blank" title="Facebook">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="https://www.instagram.com/" class="instagram" target="_blank" title="Instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="https://pk.linkedin.com/" class="linkedin" target="_blank" title="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <span>Copyright © 2025 Mirroc. All Rights Reserved.</span>
+        <span>
+          <a href="#">Terms of Service</a> | <a href="#">Privacy Policy</a>
+        </span>
+      </div>
+    </footer>
+
+    <!-- FAQ Modal for MIRROC -->
+    <div id="faqModal" class="mirroc-modal">
+      <div class="mirroc-modal-content">
+        <span class="close">&times;</span>
+        <h2><i class="bi bi-question-circle-fill"></i> Frequently Asked Questions</h2>
+
+        <div class="faq">
+          <div class="faq-item">
+            <h4 class="faq-question"><i class="bi bi-info-circle"></i> What is this website about?</h4>
+            <div class="faq-answer">
+              MIRROC is a curated collection of luxury mirrors from top local and global brands — for inspiration,
+              discovery, and design reference.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <h4 class="faq-question"><i class="bi bi-cart-x"></i> Can I buy mirrors from here?</h4>
+            <div class="faq-answer">
+              We do not sell mirrors directly. We showcase pieces for viewing and guide you to their official sources.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <h4 class="faq-question"><i class="bi bi-award"></i> How are the mirrors selected?</h4>
+            <div class="faq-answer">
+              Our team handpicks mirrors based on design, quality, craftsmanship, and harmony with modern interiors.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <h4 class="faq-question"><i class="bi bi-box-arrow-up-right"></i> Where can I explore/purchase a mirror?
+            </h4>
+            <div class="faq-answer">
+              Each mirror links to its brand or designer’s original page where you can explore more or purchase.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+    <script>
+      const headingText = "MIRROC";
+      const heading = document.getElementById("mainHeading");
+      const heroText = document.getElementById("heroText");
+      const subheading = document.getElementById("subheading");
+      const navWrapper = document.getElementById("navWrapper");
+      const clearBg = document.getElementById("circleReveal");
+      const hamburger = document.getElementById("hamburger");
+      const navLinks = document.getElementById("navLinks");
+      const categoryBtn = document.getElementById("categoryBtn");
+      const categoryDropdown = document.getElementById("categoryDropdown");
+      const ctaButton = document.querySelector(".cta-button");
+
+      hamburger.addEventListener("click", () => {
+        navLinks.classList.toggle("active");
+      });
+
+      categoryBtn.addEventListener("click", () => {
+        categoryDropdown.classList.toggle("show");
+      });
+
+      document.addEventListener("click", (e) => {
+        if (!categoryBtn.contains(e.target) && !categoryDropdown.contains(e.target)) {
+          categoryDropdown.classList.remove("show");
+        }
+      });
+
+      setTimeout(() => {
+        clearBg.classList.add("revealed");
+      }, 100);
+
+      setTimeout(() => {
+        heroText.style.opacity = 1;
+        headingText.split("").forEach((char, i) => {
+          const span = document.createElement("span");
+          span.textContent = char;
+          span.style.animationDelay = `${i * 0.3}s`;
+          heading.appendChild(span);
+        });
+      }, 4200);
+
+      setTimeout(() => {
+        subheading.classList.add('animate');
+      }, 5200);
+
+      setTimeout(() => {
+        navWrapper.classList.add('animate');
+      }, 5800);
+
+      setTimeout(() => {
+        ctaButton.classList.add('animate');
+      }, 6200);
+
+      const navLinkWrappers = document.querySelectorAll('.nav-link-wrapper');
+      navLinkWrappers.forEach((wrapper, index) => {
+        wrapper.addEventListener('mouseenter', () => {
+          wrapper.style.transform = 'scale(1.1)';
+          const prev = navLinkWrappers[index - 1];
+          const next = navLinkWrappers[index + 1];
+          if (prev) prev.style.transform = 'translateX(-10px)';
+          if (next) next.style.transform = 'translateX(10px)';
+        });
+
+        wrapper.addEventListener('mouseleave', () => {
+          navLinkWrappers.forEach(w => {
+            w.style.transform = 'translateX(0) scale(1)';
+          });
+        });
+      });
+      // sustainability
+      AOS.init({
+        duration: 1000,
+        once: true,
+        once: false,
+      });
+
+
+      // footer
+      function sendEmail() {
+        const emailInput = document.getElementById('emailInput');
+        if (emailInput.value.trim() !== "") {
+
+          emailInput.value = ""; // clear the input
+        }
+      }
+
+      function sendEmail() {
+        var email = document.getElementById("emailInput").value;
+        var error = document.getElementById("error");
+
+        if (email.includes("@") && email.includes(".")) {
+          error.style.display = "none";
+          alert("Email sent!");
+          document.getElementById("emailInput").value = "";
+        } else {
+          error.style.display = "block";
+        }
+      }
+
+
+
+      // diy
+      document.addEventListener("DOMContentLoaded", () => {
+        const section = document.querySelector('.fleet-section');
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                section.classList.add('visible');
+                section.classList.remove('out');
+              } else {
+                section.classList.remove('visible');
+                section.classList.add('out');
+              }
+            });
+          },
+          {
+            threshold: 0.1,
+          }
+        );
+
+        observer.observe(section);
+      });
+
+      // why us 
+      const items = [
+        { btn: 'hs1', info: 'info1', line: 'line1' },
+        { btn: 'hs2', info: 'info2', line: 'line2' },
+        { btn: 'hs3', info: 'info3', line: 'line3' },
+        { btn: 'hs4', info: 'info4', line: 'line4' },
+        { btn: 'hs5', info: 'info5', line: 'line5' },
+      ];
+
+      function updateLine(btnEl, infoEl, lineEl) {
+        const svg = document.querySelector('svg.lines');
+        const svgRect = svg.getBoundingClientRect();
+        const btnRect = btnEl.getBoundingClientRect();
+        const infoRect = infoEl.getBoundingClientRect();
+
+        const btnX = btnRect.left + btnRect.width / 2 - svgRect.left;
+        const btnY = btnRect.top + btnRect.height / 2 - svgRect.top;
+
+        const infoX = infoRect.left + infoRect.width / 2 - svgRect.left;
+        const infoY = infoRect.top + infoRect.height / 2 - svgRect.top;
+
+        lineEl.setAttribute('x1', btnX);
+        lineEl.setAttribute('y1', btnY);
+        lineEl.setAttribute('x2', infoX);
+        lineEl.setAttribute('y2', infoY);
+      }
+
+      function refreshLines() {
+        items.forEach(({ btn, info, line }) => {
+          const btnEl = document.getElementById(btn);
+          const infoEl = document.getElementById(info);
+          const lineEl = document.getElementById(line);
+          if (btnEl.classList.contains('rotate')) {
+            updateLine(btnEl, infoEl, lineEl);
+          }
+        });
+      }
+
+      items.forEach(({ btn, info, line }) => {
+        const btnEl = document.getElementById(btn);
+        const infoEl = document.getElementById(info);
+        const lineEl = document.getElementById(line);
+
+        btnEl.addEventListener('click', () => {
+          const active = btnEl.classList.toggle('rotate');
+          infoEl.classList.toggle('show', active);
+          lineEl.classList.toggle('show', active);
+          if (active) {
+            updateLine(btnEl, infoEl, lineEl);
+          }
+        });
+      });
+
+      window.addEventListener('resize', refreshLines);
+      window.addEventListener('scroll', refreshLines);
+
+      // Scroll-triggered animation
+      const section = document.getElementById('whyUsSection');
+      const observer = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              section.classList.add('fade-in');
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.3 }
+      );
+      observer.observe(section);
+    </script>
+    <!-- FAQ -->
+    <script>
+      const faqModal = document.getElementById('faqModal');
+      const closeBtn = document.querySelector('.close');
+      const faqLinks = [document.getElementById('faqNav'), document.getElementById('faqFooter')];
+
+      faqLinks.forEach(link => {
+        if (link) {
+          link.addEventListener('click', e => {
+            e.preventDefault();
+            faqModal.style.display = 'block';
+          });
+        }
+      });
+
+      closeBtn.onclick = () => faqModal.style.display = 'none';
+      window.onclick = (e) => {
+        if (e.target === faqModal) faqModal.style.display = 'none';
+      };
+
+      const questions = document.querySelectorAll('.faq-question');
+      questions.forEach(q => {
+        q.addEventListener('click', () => {
+          const answer = q.nextElementSibling;
+          const isOpen = answer.style.display === 'block';
+
+          document.querySelectorAll('.faq-answer').forEach(a => a.style.display = 'none');
+          document.querySelectorAll('.faq-question').forEach(q => q.classList.remove('active'));
+
+          if (!isOpen) {
+            answer.style.display = 'block';
+            q.classList.add('active');
+          }
+        });
+      });
+    </script>
+
+</body>
+
+</html>

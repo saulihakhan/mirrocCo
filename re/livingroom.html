@@ -1,0 +1,1547 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Living-catalog</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.cdnfonts.com/css/canela-text-trial');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'graphik', sans-serif;
+    }
+
+    @font-face {
+      font-family: 'Graphik';
+      src: url('fonts/Graphik-Regular.ttf') format('truetype');
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Graphik';
+      src: url('fonts/Graphik-RegularItalic.ttf') format('truetype');
+      font-weight: 400;
+      font-style: italic;
+    }
+
+    @font-face {
+      font-family: 'Aliseo';
+      src: url('fonts/ALISEO.otf') format('opentype');
+    }
+
+    body,
+    html {
+      height: 100%;
+      background-color: #cecabe;
+      scroll-behavior: smooth;
+    }
+
+    .hero-section {
+      position: relative;
+      height: 70vh;
+      background: url(home.jpg) no-repeat center center/cover;
+      z-index: 1;
+      opacity: 80%;
+
+
+
+    }
+
+    button {
+      font-family: 'ALISEO', sans-serif;
+      font-size: 14px;
+      font-weight: normal;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+
+    }
+
+    .navbar {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 40px);
+      max-width: 1400px;
+      padding: 20px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 12px;
+      z-index: 3;
+    }
+
+    .navbar .logo {
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    .navbar .logo:hover {
+      color: #000;
+      transform: scale(1.1);
+    }
+
+    .navbar ul {
+      display: flex;
+      list-style: none;
+      gap: 30px;
+      position: relative;
+      align-items: center;
+    }
+
+    .navbar ul li {
+      position: relative;
+      /* Remove font-family, font-size, font-weight, etc from here */
+    }
+
+    .navbar ul li a {
+      color: #000;
+      text-decoration: none;
+      font-family: 'ALISEO', sans-serif;
+      font-size: 14px;
+      font-weight: normal;
+      text-transform: uppercase;
+      padding: 5px 10px;
+      display: inline-block;
+      transition: color 0.3s ease, transform 0.3s ease;
+      position: relative;
+    }
+
+    /* Underline effect */
+    .navbar ul li a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 2px;
+      background-color: #aad1f2;
+      transition: width 0.3s ease;
+      border-radius: 2px;
+    }
+
+    .navbar ul li a:hover::after {
+      width: 100%;
+    }
+
+    .navbar ul li a:hover {
+      color: #aad1f2;
+      transform: scale(1.05);
+    }
+
+    .hero-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 180px;
+      color: white;
+      font-family: 'Canela Trial', serif;
+      font-weight: 900;
+      line-height: 0.9;
+      z-index: 3;
+      white-space: nowrap;
+    }
+
+    .bottom-bar-wrapper {
+      position: relative;
+      height: 160px;
+      margin-top: -80px;
+      z-index: 2;
+    }
+
+    .bottom-bar {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: white;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      width: calc(100% - 40px);
+      max-width: 1400px;
+    }
+
+    .bottom-bar .left-text {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .bottom-bar .search-bar {
+      display: flex;
+      align-items: center;
+      flex-grow: 1;
+      justify-content: flex-end;
+      transition: ease all 0.2s;
+    }
+
+    .bottom-bar .search-bar button:hover {
+      background-color: #aad1f2;
+      color: white;
+      scale: translateX(0.10);
+    }
+
+    .bottom-bar input[type="text"] {
+      padding: 8px;
+      width: 280px;
+      border: 1px solid #ccc;
+      border-radius: 20px 0 0 20px;
+      outline: none;
+      font-size: 14px;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .bottom-bar button {
+      padding: 8px 18px;
+      border: none;
+      background-color: black;
+      color: white;
+      border-radius: 0 20px 20px 0;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .product-section {
+      display: flex;
+      gap: 20px;
+      width: 90%;
+      max-width: 1400px;
+      margin: 30px auto;
+    }
+
+    .sidebar {
+      width: 260px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      font-size: 15px;
+    }
+
+    .sidebar h4 {
+      font-size: 18px;
+      margin-bottom: 15px;
+    }
+
+
+
+
+
+
+
+    /* When a dropdown is open, add space below the dropdown for the open subcategories */
+    .main-category>.dropdown.open {
+      margin-bottom: 28px;
+    }
+
+    /* Give space above subcategories so when open, the list isn't cramped */
+    .subcategories {
+      margin-top: 13px;
+      margin-bottom: 8px;
+      /* some space below the last li too */
+    }
+
+    /* Give space above/below subcategories li */
+    .subcategories li {
+      padding: 8px 0;
+    }
+
+
+
+
+    .main-category,
+    .filters {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .dropdown-toggle,
+    .filters li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 15px;
+    }
+
+    .dropdown-toggle:hover,
+    .filters li:hover {
+      background-color: #f5f5f5;
+      transform: translateX(5px);
+    }
+
+    .dropdown.open>.dropdown-toggle {
+      background-color: #eee;
+    }
+
+    .dropdown.open .subcategories {
+      display: block;
+    }
+
+    .subcategories {
+      display: none;
+      padding-left: 20px;
+    }
+
+    .subcategories li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: #555;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .subcategories li:hover {
+      transform: translateX(5px);
+    }
+
+    .sub-catgeories-li li a {
+      color: #222;
+      font-family: inherit;
+      font-size: 16px;
+      text-decoration: none;
+      display: block;
+      padding: 3px 0;
+      border-radius: 6px;
+      transition:
+        color 0.2s,
+        transform 0.2s,
+        background 0.2s;
+    }
+
+    .sub-catgeories-li li a:hover {
+
+      transform: translateX(8px);
+      color: #aad1f2;
+      font-weight: bold;
+    }
+
+    .sub-catgeories-li li :hover {
+
+      transform: translateX(8px);
+      color: #aad1f2;
+      font-weight: bold;
+    }
+
+    .toggle-icon {
+      margin-left: auto;
+      font-size: 12px;
+      color: #999;
+    }
+
+    .product-grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+
+    .card-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .image-box {
+      width: 100%;
+      padding-top: 100%;
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #fff;
+      margin-bottom: 12px;
+    }
+
+    .image-box img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .card-content {
+      background: white;
+      border-radius: 16px;
+      padding: 0.75rem;
+      width: 100%;
+    }
+
+    .top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .product-name {
+      font-family: 'Canela', serif;
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 1.3;
+      color: #222222;
+      letter-spacing: 0.2px;
+      margin-bottom: 4px;
+    }
+
+    .product-name,
+    .price {
+      font-weight: bold;
+      font-size: 0.95rem;
+    }
+
+    .details {
+      font-size: 0.7rem;
+      color: #555;
+      margin-bottom: 0.75rem;
+    }
+
+    .actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .actions button {
+      flex: 1;
+      padding: 0.5rem;
+      font-size: 0.8rem;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease, opacity 0.3s ease;
+    }
+
+    .actions button:hover {
+      transform: scale(1.1);
+    }
+
+    .actions .secondary {
+      background: transparent;
+      color: black;
+      border: 2px solid black;
+    }
+
+    .actions .secondary:hover {
+      background: black;
+      color: white;
+    }
+
+    .actions .primary {
+      background: black;
+      color: white;
+    }
+
+    .actions .primary:hover {
+      opacity: 0.8;
+    }
+
+    .subcategories li.active {
+      font-weight: bold;
+      color: black;
+    }
+
+    .newsletter {
+      background: linear-gradient(135deg, #434343, #000000);
+      color: white;
+      padding: 20px 30px;
+      border-radius: 12px;
+      margin: 60px 20px 40px 20px;
+    }
+
+    .newsletter h2 {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .newsletter-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .newsletter-form input[type="email"] {
+      padding: 10px 16px;
+      border-radius: 20px;
+      border: none;
+      width: 220px;
+      min-width: 0;
+    }
+
+    .newsletter-form button {
+      padding: 10px 18px;
+      border: none;
+      background-color: white;
+      color: black;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      font-family: 'ALISEO', sans-serif;
+      font-size: 14px;
+      font-weight: normal;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .newsletter-form button:hover {
+      background-color: black;
+      color: white;
+      border: 1px solid white;
+    }
+
+    .newsletter-description {
+      max-width: 380px;
+      font-size: 14px;
+      line-height: 1.6;
+      text-align: right;
+    }
+
+    @media (max-width: 800px) {
+      .newsletter-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .newsletter-description {
+        max-width: 100%;
+        text-align: left;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .newsletter {
+        margin: 30px 3vw 20px 3vw;
+        padding: 12px 7vw;
+        font-size: 1rem;
+      }
+
+      .newsletter h2 {
+        font-size: 1.1rem;
+      }
+
+      .newsletter-form input[type="email"] {
+        width: 120px;
+        font-size: 0.98em;
+      }
+    }
+
+    footer {
+      width: 100%;
+      padding: 20px 30px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      border-top: 1px solid #ddd;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+
+    .footer-section {
+      margin-bottom: 20px;
+    }
+
+    .footer-section h4 {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-section ul li {
+      margin-bottom: 6px;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .social-icons a {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      color: white;
+      font-size: 16px;
+      text-decoration: none;
+      transition: transform 0.3s ease;
+    }
+
+    /* Specific brand colors */
+    .social-icons a.twitter {
+      background-color: #1da1f2;
+    }
+
+    .social-icons a.facebook {
+      background-color: #1877f2;
+    }
+
+    .social-icons a.instagram {
+      background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%,
+          #fd5949 45%, #d6249f 60%, #285AEB 90%);
+      color: white;
+    }
+
+    .social-icons a.linkedin {
+      background-color: #0077b5;
+    }
+
+    .social-icons a:hover {
+      transform: scale(1.1);
+    }
+
+    s .footer-bottom {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 30px;
+      border-top: 1px solid #eee;
+      padding-top: 15px;
+      font-size: 13px;
+      color: #666;
+      box-sizing: border-box;
+    }
+
+    .footer-bottom a {
+      color: #666;
+      text-decoration: none;
+      margin-left: 12px;
+      transition: color 0.3s ease;
+    }
+
+    .footer-bottom a:hover {
+      color: #000;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      footer {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-start;
+        font-size: 12px;
+      }
+
+      .footer-bottom span:last-child {
+        margin-left: 0;
+      }
+
+      .footer-bottom a {
+        margin-left: 0;
+        margin-right: 12px;
+      }
+    }
+
+    .footer-section ul li a {
+      color: inherit;
+
+      text-decoration: none;
+
+      display: block;
+
+      width: 100%;
+      height: 100%;
+      transition: filter 0.3s ease, transform 0.3s ease;
+    }
+
+    .footer-section ul li a:hover {
+      transform: scale(1.1);
+      color: #000000;
+    }
+
+    @media (max-width: 768px) {
+      .footer-bottom {
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-start;
+        font-size: 12px;
+      }
+
+      .footer-bottom span:last-child {
+        margin-left: 0;
+      }
+
+      .footer-bottom a {
+        margin-left: 0;
+        margin-right: 12px;
+      }
+    }
+
+    /* Large devices (laptops/desktops, up to 1200px) */
+    @media (max-width: 1200px) {
+      .product-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .hero-text {
+        font-size: 120px;
+      }
+    }
+
+    /* Medium devices (tablets, up to 992px) */
+    @media (max-width: 992px) {
+      .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+      }
+
+      .product-section {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+
+      .hero-text {
+        font-size: 90px;
+      }
+
+      .navbar {
+        padding: 15px;
+      }
+
+      .navbar ul {
+        gap: 15px;
+      }
+
+      .bottom-bar {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+      }
+
+      .bottom-bar .search-bar {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    /* Small devices (landscape phones, up to 768px) */
+    @media (max-width: 768px) {
+      .product-grid {
+        grid-template-columns: repeat(1, 1fr);
+        gap: 1rem;
+      }
+
+      .hero-text {
+        font-size: 60px;
+      }
+
+      .navbar {
+        padding: 10px;
+      }
+
+      .navbar ul {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 20px;
+        flex-direction: column;
+        border-radius: 0 0 12px 12px;
+      }
+
+      .navbar.mobile-menu-open ul {
+        display: flex;
+      }
+
+      .mobile-menu-toggle {
+        display: block;
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+      }
+
+      .bottom-bar input[type="text"] {
+        width: 100%;
+        max-width: 280px;
+      }
+
+      .newsletter-row {
+        flex-direction: column;
+      }
+
+      .newsletter-description {
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      .newsletter-form {
+        width: 100%;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .newsletter-form input[type="email"],
+      .newsletter-form button {
+        width: 100%;
+        max-width: 280px;
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 30px;
+      }
+
+      .footer-section {
+        width: 100%;
+        text-align: center;
+      }
+
+      .social-icons {
+        justify-content: center;
+      }
+    }
+
+    /* Extra small devices (phones, up to 576px) */
+    @media (max-width: 576px) {
+      .hero-text {
+        font-size: 40px;
+      }
+
+      .navbar .logo img {
+        height: 40px;
+      }
+
+      .bottom-bar {
+        padding: 15px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .newsletter-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .newsletter-description {
+        text-align: left;
+        max-width: 100%;
+        margin-top: 15px;
+      }
+
+      .newsletter-form {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+      }
+
+      .newsletter-form input[type="email"],
+      .newsletter-form button {
+        width: 100%;
+        max-width: 100%;
+      }
+
+      .newsletter-form button {
+        margin-top: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="hero-section">
+    <div class="navbar">
+      <div class="logo"><a href="/index.html"><img src="1-removebg-preview.png" alt="" style="height: 60px;"></a></div>
+      <button class="mobile-menu-toggle" style="display: none;">
+        <i class="bi bi-list"></i>
+      </button>
+      <ul>
+        <li><a href="/About.html">Know us</a></li>
+        <li><a href="/contact.html">Connect With us</a></li>
+        <li><a href="/index.html#trending">Featured</a></li>
+        <li><a href="/index.html#WhySection">Why us?</a></li>
+        <li><a href="#newsletter">Newsletter</a></li>
+        <li><a href="/index.html#Sustainability">Sustainability</a></li>
+      </ul>
+    </div>
+    <div class="hero-text">Living Room</div>
+  </div>
+  <div class="bottom-bar-wrapper">
+    <div class="bottom-bar">
+      <div class="left-text">Give All You Need</div>
+      <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search on bedroom" />
+        <button type="button" onclick="validateSearch()">Search</button>
+        <p id="searchError" style="color: black; font-size: 13px;font-weight: bold; margin-left: 10px; display: none;">
+          Please enter a search
+          term.</p>
+              
+      </div>
+    </div>
+  </div>
+  <section>
+    <div class="product-section">
+      <div class="sidebar">
+        <h4>Category</h4>
+        <ul class="main-category">
+          <!-- Material Dropdown -->
+          <li class="dropdown">
+            <div class="dropdown-toggle">
+              <i class="bi bi-box"></i>
+              <span>Material</span>
+              <i class="bi bi-chevron-down toggle-icon"></i>
+            </div>
+            <ul class="subcategories">
+              <li data-material="metal"><i class="bi bi-caret-right-fill"></i>Metal Frame</li>
+              <li data-material="wooden"><i class="bi bi-caret-right-fill"></i>Wooden Frame</li>
+              <li data-material="acrylic"><i class="bi bi-caret-right-fill"></i>Acrylic Frame</li>
+              <li data-material="stone"><i class="bi bi-caret-right-fill"></i>Stone Frame</li>
+            </ul>
+          </li>
+
+          <!-- Categories Dropdown -->
+          <li class="dropdown">
+            <div class="dropdown-toggle">
+              <i class="bi bi-stars"></i>
+              <span>Categories</span>
+              <i class="bi bi-chevron-down toggle-icon"></i>
+
+            </div>
+            <ul class="subcategories  sub-catgeories-li">
+              <li><a href="/re/bedroom.html">Bedroom</a></li>
+              <li><a href="/re/livingroom.html">Living Room</a></li>
+              <li><a href="/re/bathrooom.html">Bathroom</a></li>
+              <li><a href="/re/vanity.html">Vanity </a></li>
+              <li><a href="/re/hallway.html">Hallway </a></li>
+              <li><a href="/re/dining.html">Dinning Room</a> </li>
+              <li><a href="/re/entryway.html">Entryway </a></li>
+              <li><a href="/re/home-office.html">Home Office</a></li>
+              <li><a href="">Closet Room</a></li>
+            </ul>
+          </li>
+        </ul>
+
+      </div>
+      <div class="product-grid">
+        <!-- card here -->
+        <div class="card-container" data-material="acrylic">
+          <div class="image-box">
+            <img src="acrylic (Lr).jpeg">
+          </div>
+          <div class="card-content">
+            <div class="top-row">
+              <div class="product-name">Flower-Mirror</div>
+              <div class="price">$34</div>
+            </div>
+            <div class="details">Add charm and sophistication to your space with this beautifully designed acrylic
+              flower mirror. Featuring intricately cut floral patterns </div>
+            <div class="actions">
+              <button class="secondary">Wishlist</button>
+              <button class="primary">Buy</button>
+            </div>
+          </div>
+        </div>
+        <!-- card2 -->
+        <div class="card-container" data-material="stone">
+          <div class="image-box">
+            <img src="stone(lr1).jpeg" alt="Product">
+          </div>
+          <div class="card-content">
+            <div class="top-row">
+              <div class="product-name">Selenite-Crystal</div>
+              <div class="price">$64</div>
+            </div>
+            <div class="details">selenite crystal mirror. Framed with natural selenite wands, each piece is carefully
+              arranged to reflect light and energy, creating a luminous </div>
+            <div class="actions">
+              <button class="secondary">Wishlist</button>
+              <button class="primary">Buy</button>
+            </div>
+          </div>
+        </div>
+        <!-- card3-->
+        <div class="card-container" data-material="metal">
+          <div class="image-box">
+            <img src="metal(Lr1).jpeg" alt="Product">
+          </div>
+          <div class="card-content">
+            <div class="top-row">
+              <div class="product-name">Oakrain</div>
+              <div class="price">$62</div>
+            </div>
+            <div class="details"> Oakrain metal mirror. Crafted with a durable metal frame and finished with a smooth,
+              matte texture, this mirror combines strength</div>
+            <div class="actions">
+              <button class="secondary">Wishlist</button>
+              <button class="primary">Buy</button>
+            </div>
+          </div>
+        </div>
+        <!-- card4-->
+        <div class="card-container" data-material="wooden">
+          <div class="image-box">
+            <img src="wo1.jpg" alt="Product">
+          </div>
+          <div class="card-content">
+            <div class="top-row">
+              <div class="product-name">Aaliyah-Wood</div>
+              <div class="price">$32</div>
+            </div>
+            <div class="details"> Aaliyah wood mirror. Framed in richly grained natural wood, this mirror adds depth,
+              texture, and warmth to your walls </div>
+            <div class="actions">
+              <button class="secondary">Wishlist</button>
+              <button class="primary">Buy</button>
+            </div>
+          </div>
+        </div>
+        <!-- card5 -->
+        <div class="card-container" data-material="wooden">
+          <div class="image-box">
+            <img src="wooden(Lr1).jpeg" alt="Product">
+          </div>
+          <div class="card-content">
+            <div class="top-row">
+              <div class="product-name">Tempered-Stone</div>
+              <div class="price">$41</div>
+            </div>
+            <div class="details"> Crafted with a natural stone border, each piece showcases unique textures, tones, and
+              organic patterns </div>
+            <div class="actions">
+              <button class="secondary">Wishlist</button>
+              <button class="primary">Buy</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- card6 -->
+        <div class="card-container" data-material="acrylic">
+          <div class="image-box">
+            <img src="acrylic(lr1).jpeg" alt="Product">
+          </div>
+          <div class="card-content">
+            <div class="top-row">
+              <div class="product-name">Aether-Light</div>
+              <div class="price">$49</div>
+            </div>
+            <div class="details">designed to reflect light beautifully while keeping your decor effortlessly chic. With
+              its crystal-clear </div>
+            <div class="actions">
+              <button class="secondary">Wishlist</button>
+              <button class="primary">Buy</button>
+            </div>
+          </div>
+        </div>
+        <!-- card7 -->
+        <div class="card-container" data-material="metal">
+          <div class="image-box">
+            <img src="metal(Lr2).jpeg" alt="Product">
+          </div>
+          <div class="card-content">
+            <div class="top-row">
+              <div class="product-name">Overlap-diamond</div>
+              <div class="price">$55</div>
+            </div>
+            <div class="details"> a striking blend of art and function. Featuring a series of interlocked diamond
+              shapes, this mirror creates </div>
+            <div class="actions">
+              <button class="secondary">Wishlist</button>
+              <button class="primary">Buy</button>
+            </div>
+          </div>
+        </div>
+        <!-- card8 -->
+        <div class="card-container" data-material="wooden">
+          <div class="image-box">
+            <img src="wo2.jpg" alt="Product">
+          </div>
+          <div class="card-content">
+            <div class="top-row">
+              <div class="product-name">Rustic-Edge</div>
+              <div class="price">$41</div>
+            </div>
+            <div class="details">crafted to showcase the raw beauty of natural wood. Featuring an organic, live-edge
+              frame, each mirror </div>
+            <div class="actions">
+              <button class="secondary">Wishlist</button>
+              <button class="primary">Buy</button>
+            </div>
+          </div>
+        </div>
+        <!-- card9 -->
+        <div class="card-container" data-material="acrylic">
+          <div class="image-box">
+            <img src="acrylic(Lr3).jpeg" alt="Product">
+          </div>
+          <div class="card-content">
+            <div class="top-row">
+              <div class="product-name">Orbital-Metal</div>
+              <div class="price">$50</div>
+            </div>
+            <div class="details">Featuring a bold, circular metal frame with intersecting orbital rings, this mirror
+              creates a dynamic visual effect that’s both striking </div>
+            <div class="actions">
+              <button class="secondary">Wishlist</button>
+              <button class="primary">Buy</button>
+            </div>
+          </div>
+        </div>
+        <!-- card10 -->
+        <div class="card-container" data-material="metal">
+          <div class="image-box">
+            <img src="metal(Lr3).jpeg" alt="Product">
+          </div>
+          <div class="card-content">
+            <div class="top-row">
+              <div class="product-name">Parquet-Stone</div>
+              <div class="price">$42</div>
+            </div>
+            <div class="details"> Parquet Stone Mirror offers a sophisticated focal point that blends the strength of
+              stone with the elegance of timeless design. </div>
+            <div class="actions">
+              <button class="secondary">Wishlist</button>
+              <button class="primary">Buy</button>
+            </div>
+          </div>
+        </div>
+        <!-- Repeat more cards as needed -->
+
+
+        <!-- card11 -->
+        <div class="card-container" data-material="acrylic">
+          <div class="image-box">
+            <img src="acrylic(Lr5).jpeg" alt="Product">
+          </div>
+          <div class="card-content">
+            <div class="top-row">
+              <div class="product-name">Lumber-Wood</div>
+              <div class="price">$33</div>
+            </div>
+            <div class="details">Crafted with high-quality wood, this mirror features a sturdy, handcrafted frame that
+              highlights the natural grain a</div>
+            <div class="actions">
+              <button class="secondary">Wishlist</button>
+              <button class="primary">Buy</button>
+            </div>
+          </div>
+        </div>
+        <!-- card12 -->
+        <div class="card-container" data-material="wooden">
+          <div class="image-box">
+            <img src="wooden(Lr2).jpeg" alt="Product">
+          </div>
+          <div class="card-content">
+            <div class="top-row">
+              <div class="product-name">Spring-Mirror</div>
+              <div class="price">$32</div>
+            </div>
+            <div class="details">Featuring a lightweight, crystal-clear acrylic frame, this mirror reflects both light
+              and life, creating an airy open feeling in any room.</div>
+            <div class="actions">
+              <button class="secondary">Wishlist</button>
+              <button class="primary">Buy</button>
+            </div>
+          </div>
+        </div>
+        <!-- card13 -->
+        <div class="card-container" data-material="wooden">
+          <div class="image-box">
+            <img src="wooden(Lr3).jpeg" alt="Product">
+          </div>
+          <div class="card-content">
+            <div class="top-row">
+              <div class="product-name">Birch-Wood </div>
+              <div class="price">$23</div>
+            </div>
+            <div class="details">natural hues that bring warmth and depth to your space. Whether your style is
+              farmhouse, boho, or contemporary, this mirror</div>
+            <div class="actions">
+              <button class="secondary">Wishlist</button>
+              <button class="primary">Buy</button>
+            </div>
+          </div>
+        </div>
+        <!-- card14 -->
+        <div class="card-container" data-material="acrylic">
+          <div class="image-box">
+            <img src="acrylic(Lr6).jpeg" alt="Product">
+          </div>
+          <div class="card-content">
+            <div class="top-row">
+              <div class="product-name">Shimmer-Edge</div>
+              <div class="price">$44</div>
+            </div>
+            <div class="details"> frameless design that adds a touch of modern elegance while remaining lightweight and
+              durable. The crystal-clear </div>
+            <div class="actions">
+              <button class="secondary">Wishlist</button>
+              <button class="primary">Buy</button>
+            </div>
+          </div>
+        </div>
+        <!-- card15 -->
+        <div class="card-container" data-material="metal">
+          <div class="image-box">
+            <img src="Metal(Lr4).jpeg" alt="Product">
+          </div>
+          <div class="card-content">
+            <div class="top-row">
+              <div class="product-name">Gomera Jute</div>
+              <div class="price">$35</div>
+            </div>
+            <div class="details">touch of nature’s grandeur to your space. Its solid, enduring presence evokes a feeling
+              of strength and grounding, </div>
+            <div class="actions">
+              <button class="secondary">Wishlist</button>
+              <button class="primary">Buy</button>
+            </div>
+          </div>
+        </div>
+        <!-- card16 -->
+        <div class="card-container" data-material="metal">
+          <div class="image-box">
+            <img src="Metal(Lr5).jpeg" alt="Product">
+          </div>
+          <div class="card-content">
+            <div class="top-row">
+              <div class="product-name">Blob-Meatl</div>
+              <div class="price">$63</div>
+            </div>
+            <div class="details">Blob Metal Mirror, where form meets fluidity in a strikingly modern silhouette.
+              Featuring an irregular, organic shape</div>
+            <div class="actions">
+              <button class="secondary">Wishlist</button>
+              <button class="primary">Buy</button>
+            </div>
+          </div>
+        </div>
+        <!-- card17 -->
+        <div class="card-container" data-material="acrylic">
+          <div class="image-box">
+            <img src="acrylic(Lr2).jpeg" alt="Product">
+          </div>
+          <div class="card-content">
+            <div class="top-row">
+              <div class="product-name">droplic</div>
+              <div class="price">$45</div>
+            </div>
+            <div class="details">gentle shape of a water droplet. Crafted from high-quality, lightweight acrylic, this
+              mirror features smooth, rounded edges</div>
+            <div class="actions">
+              <button class="secondary">Wishlist</button>
+              <button class="primary">Buy</button>
+            </div>
+          </div>
+        </div>
+        <!-- card18 -->
+        <div class="card-container" data-material="metal">
+          <div class="image-box">
+            <img src="metal(Lr6).jpeg" alt="Product">
+          </div>
+          <div class="card-content">
+            <div class="top-row">
+              <div class="product-name">Moon-Cycle</div>
+              <div class="price">$48</div>
+            </div>
+            <div class="details">a stunning wall piece that captures the mystical beauty of the lunar phases. Featuring
+              a series of mirrored shapes </div>
+            <div class="actions">
+              <button class="secondary">Wishlist</button>
+              <button class="primary">Buy</button>
+            </div>
+          </div>
+        </div>
+        <!-- card19 -->
+        <div class="card-container" data-material="wooden">
+          <div class="image-box">
+            <img src="wooden(Lr6).jpeg" alt="Product">
+          </div>
+          <div class="card-content">
+            <div class="top-row">
+              <div class="product-name">Oak-Wood</div>
+              <div class="price">$65</div>
+            </div>
+            <div class="details">The natural grain and handcrafted finish create a rich, organic feel that complements
+              both modern and traditional interiors</div>
+            <div class="actions">
+              <button class="secondary">Wishlist</button>
+              <button class="primary">Buy</button>
+            </div>
+          </div>
+        </div>
+        <!-- card20 -->
+        <div class="card-container" data-material="wooden">
+          <div class="image-box">
+            <img src="wooden9(Lr5).jpeg" alt="Product">
+          </div>
+          <div class="card-content">
+            <div class="top-row">
+              <div class="product-name">pebble</div>
+              <div class="price">$42</div>
+            </div>
+            <div class="details"> handcrafted frame made from natural stone, each piece is uniquely marked by organic
+              patterns, subtle color variations</div>
+            <div class="actions">
+              <button class="secondary">Wishlist</button>
+              <button class="primary">Buy</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Newsletter Signup Section -->
+  <div class="newsletter" id="newsletter">
+    <h2>Ready to Get Our <br>New Stuff?</h2>
+    <div class="newsletter-row">
+      <div class="newsletter-form">
+        <input id="emailInput" type="email" placeholder="Your Email" required />
+        <button type="button" onclick="sendEmail()">Send</button>
+        <p id="error" style="color: red; display: none;">Invalid email</p>
+      </div>
+
+      <div class="newsletter-description">
+        <strong>Stuffs for Homes and Needs</strong><br />
+        We’ll listen to your needs, identify the best approach, and then choose a bespoke suitable mirror that’s right
+        for you.
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Section -->
+  <footer>
+    <div class="footer-section">
+      <h4>About</h4>
+      <ul>
+        <li><a href="About.html">About us</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-section">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="contact.html">Contact Us</a></li>
+
+      </ul>
+    </div>
+
+    <div class="footer-section">
+      <h4>Social Media</h4>
+      <div class="social-icons">
+        <a href="https://twitter.com/" class="twitter" target="_blank" title="Twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a href="https://www.facebook.com/" class="facebook" target="_blank" title="Facebook">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://www.instagram.com/" class="instagram" target="_blank" title="Instagram">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://pk.linkedin.com/" class="linkedin" target="_blank" title="LinkedIn">
+          <i class="fab fa-linkedin-in"></i>
+            </a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>Copyright © 2025 Mirroc. All Rights Reserved.</span>
+      <span>
+        <a href="#">Terms of Service</a> | <a href="#">Privacy Policy</a>
+      </span>
+    </div>
+  </footer>
+  <!--  -->
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Enable toggling for ALL dropdowns in sidebar
+      document.querySelectorAll('.dropdown').forEach(dropdown => {
+        dropdown.querySelector('.dropdown-toggle').addEventListener('click', () => {
+          dropdown.classList.toggle('open');
+        });
+      });
+      // Subcategory filter only for Material
+      const subcategoryItems = document.querySelectorAll('.main-category .dropdown:nth-child(1) .subcategories li');
+      const cards = document.querySelectorAll('.card-container');
+      subcategoryItems.forEach(item => {
+        item.addEventListener('click', () => {
+          const selectedMaterial = item.dataset.material;
+          // Toggle active class
+          subcategoryItems.forEach(i => i.classList.remove('active'));
+          item.classList.add('active');
+          // Filter cards
+          cards.forEach(card => {
+            const cardMaterial = card.dataset.material;
+            if (cardMaterial === selectedMaterial) {
+              card.style.display = 'flex';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      });
+      // Search filter
+      const searchInput = document.querySelector('.bottom-bar input[type="text"]');
+      const searchButton = document.querySelector('.bottom-bar button');
+      const filterBySearch = () => {
+        const query = searchInput.value.toLowerCase();
+        cards.forEach(card => {
+          const name = card.querySelector('.product-name').textContent.toLowerCase();
+          const details = card.querySelector('.details').textContent.toLowerCase();
+          if (name.includes(query) || details.includes(query)) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      };
+      searchButton.addEventListener('click', filterBySearch);
+      searchInput.addEventListener('keypress', e => {
+        if (e.key === 'Enter') filterBySearch();
+      });
+    });
+    function validateSearch() {
+      const input = document.getElementById("searchInput");
+      const error = document.getElementById("searchError");
+
+      if (input.value.trim() === "") {
+        error.style.display = "block";
+      } else {
+        error.style.display = "none";
+        // Your search action goes here
+        alert("Searching for: " + input.value.trim());
+      }
+    }
+
+    // Optional: Hide error as user types
+    document.getElementById("searchInput").addEventListener("input", function () {
+      document.getElementById("searchError").style.display = "none";
+    });
+
+    // 
+    // footer
+    function sendEmail() {
+      const emailInput = document.getElementById('emailInput');
+      if (emailInput.value.trim() !== "") {
+
+        emailInput.value = ""; // clear the input
+      }
+    }
+
+    function sendEmail() {
+      var email = document.getElementById("emailInput").value;
+      var error = document.getElementById("error");
+
+      if (email.includes("@") && email.includes(".")) {
+        error.style.display = "none";
+        alert("Email sent!");
+        document.getElementById("emailInput").value = "";
+      } else {
+        error.style.display = "block";
+      }
+    }
+    // 
+    function sendEmail() {
+      var email = document.getElementById("emailInput").value;
+      var error = document.getElementById("error");
+
+      if (email.includes("@") && email.includes(".")) {
+        error.style.display = "none";
+        alert("Email sent!");
+        document.getElementById("emailInput").value = "";
+      } else {
+        error.style.display = "block";
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      // 🔁 Update all 'Wishlist' buttons
+      document.querySelectorAll("button.secondary").forEach(button => {
+        button.textContent = "visit"; // 📝 New name
+        button.onclick = () => {
+          window.location.href = "https://www.daraz.pk/?spm=a2a0e.tm80335142.header.dhome.50ca4076FRb3pQ#?"; // 🌐 Change this to your actual link
+        };
+      });
+
+      document.querySelectorAll("button.primary").forEach(button => {
+        button.textContent = "View More"; // 📝 New name
+        button.onclick = () => {
+          const link = document.createElement("a");
+          link.href = "product.pdf"; // 📄 Make sure this path is correct
+          link.target = "_blank"; // 🔗 Opens in a new tab
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        };
+      });
+
+    });
+    // Mobile menu toggle
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    const navbar = document.querySelector('.navbar');
+
+    if (mobileMenuToggle) {
+      mobileMenuToggle.addEventListener('click', () => {
+        navbar.classList.toggle('mobile-menu-open');
+      });
+    }
+
+    // Show/hide mobile menu toggle based on screen size
+    function handleMobileMenu() {
+      const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+      if (window.innerWidth <= 768) {
+        mobileMenuToggle.style.display = 'block';
+      } else {
+        mobileMenuToggle.style.display = 'none';
+        navbar.classList.remove('mobile-menu-open');
+      }
+    }
+
+    // Initial check and listen for window resize
+    handleMobileMenu();
+    window.addEventListener('resize', handleMobileMenu);
+  </script>
+</body>
+
+</html>

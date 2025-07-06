@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Why Choose Us</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+    }
+
+    .why-us-section {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      background: url(mirr\ \(1\).jpg) center/cover no-repeat;
+      overflow: hidden;
+    }
+
+    .why-us-section.fade-in {
+      animation: fadeInUp 1s ease forwards;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-text-why {
+      position: absolute;
+      top: 8%;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      text-align: center;
+      font-size: clamp(1.5rem, 4vw, 3rem);
+      text-transform: uppercase;
+      font-weight: bold;
+      z-index: 5;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    }
+
+    .hotspot {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid white;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.2rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      z-index: 10;
+    }
+
+    .hotspot.rotate {
+      transform: rotate(45deg);
+    }
+
+    .info-box {
+      position: absolute;
+      max-width: 240px;
+      padding: 14px 18px;
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 12px;
+      font-size: 0.95rem;
+      color: #000;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      z-index: 8;
+      pointer-events: none;
+      line-height: 1.4;
+    }
+
+    .info-box strong {
+      font-weight: 700;
+      font-size: 1.05rem;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .info-box.show {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    svg.lines {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    line.info-line {
+      stroke: white;
+      stroke-width: 2;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    line.info-line.show {
+      opacity: 1;
+    }
+
+    @media (max-height: 700px), (max-width: 600px) {
+      .info-box {
+        font-size: 0.85rem;
+        max-width: 90%;
+        padding: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<section class="why-us-section" id="whyUsSection">
+  <div class="hero-text-why">
+    WHY CHOOSE <br /> MIRROC
+  </div>
+
+  <!-- Hotspot Buttons -->
+  <div class="hotspot" id="hs1" style="top: 60%; left: 10%;">+</div>
+  <div class="hotspot" id="hs2" style="top: 40%; left: 30%;">+</div>
+  <div class="hotspot" id="hs3" style="top: 75%; left: 50%;">+</div> <!-- moved up from 88% -->
+  <div class="hotspot" id="hs4" style="top: 30%; left: 70%;">+</div>
+  <div class="hotspot" id="hs5" style="top: 15%; left: 85%;">+</div>
+
+  <!-- Info Boxes -->
+  <div class="info-box" id="info1" style="top: 48%; left: 18%;">
+    <strong>Premium Quality</strong>
+    Our mirrors are crafted with the finest materials for long-lasting clarity and strength.
+  </div>
+
+  <div class="info-box" id="info2" style="top: 28%; left: 38%;">
+    <strong>Custom Designs</strong>
+    Choose from a variety of modern or classic designs with custom sizing options.
+  </div>
+
+  <div class="info-box" id="info3" style="top: 85%; left: 60%;"> <!-- Adjusted so it doesn't crop -->
+    <strong>Shatter-Resistant</strong>
+    Safety-backed glass provides peace of mind for homes and public spaces.
+  </div>
+
+  <div class="info-box" id="info4" style="top: 40%; left: 70%;">
+    <strong>Eco-Friendly</strong>
+    Built using recycled materials and sustainable practices.
+  </div>
+
+  <div class="info-box" id="info5" style="top: 5%; left: 70%;">
+    <strong>Customer Support</strong>
+    Friendly service and fast delivery from order to installation.
+  </div>
+
+  <!-- SVG Lines -->
+  <svg class="lines">
+    <line id="line1" class="info-line" />
+    <line id="line2" class="info-line" />
+    <line id="line3" class="info-line" />
+    <line id="line4" class="info-line" />
+    <line id="line5" class="info-line" />
+  </svg>
+</section>
+
+<script>
+  const items = [
+    { btn: 'hs1', info: 'info1', line: 'line1' },
+    { btn: 'hs2', info: 'info2', line: 'line2' },
+    { btn: 'hs3', info: 'info3', line: 'line3' },
+    { btn: 'hs4', info: 'info4', line: 'line4' },
+    { btn: 'hs5', info: 'info5', line: 'line5' },
+  ];
+
+  function updateLine(btnEl, infoEl, lineEl) {
+    const svg = document.querySelector('svg.lines');
+    const svgRect = svg.getBoundingClientRect();
+    const btnRect = btnEl.getBoundingClientRect();
+    const infoRect = infoEl.getBoundingClientRect();
+
+    const btnX = btnRect.left + btnRect.width / 2 - svgRect.left;
+    const btnY = btnRect.top + btnRect.height / 2 - svgRect.top;
+
+    const infoX = infoRect.left + infoRect.width / 2 - svgRect.left;
+    const infoY = infoRect.top + infoRect.height / 2 - svgRect.top;
+
+    lineEl.setAttribute('x1', btnX);
+    lineEl.setAttribute('y1', btnY);
+    lineEl.setAttribute('x2', infoX);
+    lineEl.setAttribute('y2', infoY);
+  }
+
+  function refreshLines() {
+    items.forEach(({ btn, info, line }) => {
+      const btnEl = document.getElementById(btn);
+      const infoEl = document.getElementById(info);
+      const lineEl = document.getElementById(line);
+      if (btnEl.classList.contains('rotate')) {
+        updateLine(btnEl, infoEl, lineEl);
+      }
+    });
+  }
+
+  items.forEach(({ btn, info, line }) => {
+    const btnEl = document.getElementById(btn);
+    const infoEl = document.getElementById(info);
+    const lineEl = document.getElementById(line);
+
+    btnEl.addEventListener('click', () => {
+      const active = btnEl.classList.toggle('rotate');
+      infoEl.classList.toggle('show', active);
+      lineEl.classList.toggle('show', active);
+      if (active) {
+        updateLine(btnEl, infoEl, lineEl);
+      }
+    });
+  });
+
+  window.addEventListener('resize', refreshLines);
+  window.addEventListener('scroll', refreshLines);
+
+  // Scroll-triggered animation
+  const section = document.getElementById('whyUsSection');
+  const observer = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          section.classList.add('fade-in');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.3 }
+  );
+  observer.observe(section);
+</script>
+
+</body>
+</html>

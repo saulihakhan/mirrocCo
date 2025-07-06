@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact-us</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      height: 100vh;
+      background: url(Instagram.jpg) no-repeat center center/cover;
+      display: flex;
+      flex-direction: column;
+    }
+
+    nav {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+      position: relative;
+      z-index: 999;
+    }
+
+    nav .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      position: relative;
+    }
+
+    nav ul li {
+      position: relative;
+    }
+
+    .dropdown {
+      position: absolute;
+      top: 100%;
+      left: -80px;
+      background: white;
+      color: black;
+      border-radius: 10px;
+      display: none;
+      flex-direction: column;
+      padding: 10px 0;
+      min-width: 180px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      z-index: 10;
+    }
+
+    nav ul li a.dropdown-toggle {
+      cursor: pointer;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: color 0.3s;
+      cursor: pointer;
+      position: relative;
+    }
+
+    nav ul li a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 0%;
+      height: 2px;
+      background-color: white;
+      transition: width 0.3s ease;
+      transform-origin: right;
+    }
+
+    nav ul li a:hover::after {
+      width: 100%;
+    }
+
+    .dropdown a {
+      padding: 10px 20px;
+      color: black;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background 0.3s;
+      border-radius: 5px;
+    }
+
+    .dropdown a:hover {
+      background: rgba(128, 128, 128, 0.2);
+      margin: 5px;
+    }
+
+    .dropdown.show {
+      display: flex;
+    }
+
+    .container {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 40px;
+    }
+
+    .glass-panel {
+      width: 40%;
+      padding: 40px 30px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 30px;
+      backdrop-filter: blur(20px) saturate(120%);
+      -webkit-backdrop-filter: blur(20px) saturate(120%);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .glass-panel h1 {
+      font-size: 35px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      letter-spacing: 2px;
+    }
+
+    .glass-panel p {
+      font-size: 15px;
+      margin: 5px 0 15px;
+      font-weight: 250;
+      letter-spacing: 3px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .newsletter-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .newsletter-description {
+        text-align: left;
+        max-width: 100%;
+        margin-top: 15px;
+      }
+
+      .newsletter-form {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+      }
+
+      .newsletter-form input[type="email"],
+      .newsletter-form button {
+        width: 100%;
+        max-width: 100%;
+      }
+
+      .newsletter-form button {
+        margin-top: 10px;
+      }
+    }
+
+
+    input,
+    textarea {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      font-size: 1rem;
+      outline: none;
+      resize: none;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    button {
+      padding: 12px;
+      background-color: rgba(0, 0, 0, 0.6);
+      color: white;
+      border: none;
+      border-radius: 25px;
+      font-size: 14px;
+      cursor: pointer;
+      font-family: 'ALISEO', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    button:hover {
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    /* footer */
+    /* footer */
+    /* footer */
+    .newsletter {
+      background: linear-gradient(135deg, #434343, #000000);
+      color: white;
+      padding: 20px 30px;
+      border-radius: 12px;
+      margin: 60px 20px 40px 20px;
+      /* Only 10px margin on left & right */
+    }
+
+    .newsletter h2 {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .newsletter-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .newsletter-form input[type="email"] {
+      padding: 10px 16px;
+      border-radius: 20px;
+      border: none;
+      width: 220px;
+    }
+
+    .newsletter-form button {
+      padding: 10px 18px;
+      border: none;
+      background-color: white;
+      color: black;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    .newsletter-form button:hover {
+      background-color: black;
+      color: white;
+      border: 1px solid white;
+    }
+
+    .newsletter-description {
+      max-width: 380px;
+      font-size: 14px;
+      line-height: 1.6;
+      text-align: right;
+    }
+
+    footer {
+      width: 100%;
+      /* full width */
+      padding: 20px 30px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      border-top: 1px solid #ddd;
+      font-size: 14px;
+      box-sizing: border-box;
+      /* ensure padding doesn't add to width */
+    }
+
+
+
+    .footer-section {
+      margin-bottom: 20px;
+    }
+
+    .footer-section h4 {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-section ul li {
+      margin-bottom: 6px;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .social-icons a {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      color: white;
+      font-size: 16px;
+      text-decoration: none;
+      transition: transform 0.3s ease;
+    }
+
+    /* Specific brand colors */
+    .social-icons a.twitter {
+      background-color: #1da1f2;
+    }
+
+    .social-icons a.facebook {
+      background-color: #1877f2;
+    }
+
+    .social-icons a.instagram {
+      background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%,
+          #fd5949 45%, #d6249f 60%, #285AEB 90%);
+      color: white;
+    }
+
+    .social-icons a.linkedin {
+      background-color: #0077b5;
+    }
+
+    .social-icons a:hover {
+      transform: scale(1.1);
+    }
+
+    .footer-bottom {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 30px;
+      border-top: 1px solid #eee;
+      padding-top: 15px;
+      font-size: 13px;
+      color: #666;
+      box-sizing: border-box;
+    }
+
+    .footer-bottom a {
+      color: #666;
+      text-decoration: none;
+      margin-left: 12px;
+      transition: color 0.3s ease;
+    }
+
+    .footer-bottom a:hover {
+      color: #000;
+      text-decoration: underline;
+    }
+
+    /* Responsive: stack on small screens */
+    @media (max-width: 768px) {
+      .footer-bottom {
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-start;
+        font-size: 12px;
+      }
+
+      .footer-bottom span:last-child {
+        margin-left: 0;
+      }
+
+      .footer-bottom a {
+        margin-left: 0;
+        margin-right: 12px;
+      }
+    }
+
+   git status 
+
+
+    /* FAQ */
+    /* Google Font */
+   
+    /* Modal container */
+    .mirroc-modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
+    }
+
+    /* Modal content box */
+    .mirroc-modal-content {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 35px 30px;
+      width: 90%;
+      max-width: 600px;
+      margin: 8% auto;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      animation: fadeInSlide 0.4s ease;
+      font-family: 'Poppins', sans-serif;
+      color: #222;
+    }
+
+    @keyframes fadeInSlide {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Header */
+    .mirroc-modal-content h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Close button */
+    .close {
+      float: right;
+      font-size: 24px;
+      font-weight: 400;
+      color: #888;
+      cursor: pointer;
+    }
+
+    /* FAQ items */
+    .faq-item {
+      border-bottom: 1px solid #eee;
+      padding: 15px 0;
+    }
+
+    .faq-question {
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+    }
+
+    .faq-question::after {
+      content: "\f4ad";
+      font-family: 'bootstrap-icons';
+      position: absolute;
+      right: 0;
+      font-size: 16px;
+      color: #666;
+      transition: transform 0.3s ease;
+    }
+
+    .faq-question.active::after {
+      content: "\f2ea";
+    }
+
+    .faq-answer {
+      display: none;
+      margin-top: 10px;
+      color: #555;
+      font-size: 15px;
+      line-height: 1.6;
+      animation: fadeInAnswer 0.3s ease;
+    }
+
+    @keyframes fadeInAnswer {
+      from {
+        opacity: 0;
+        max-height: 0;
+      }
+
+      to {
+        opacity: 1;
+        max-height: 500px;
+      }
+    }
+
+    /*  */
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+    }
+
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background-color: white;
+      border-radius: 2px;
+    }
+
+    @media (max-width: 768px) {
+      nav ul {
+        display: none;
+        flex-direction: column;
+        gap: 10px;
+        background-color: rgba(0, 0, 0, 0.9);
+        position: absolute;
+        top: 60px;
+        right: 30px;
+        padding: 15px 20px;
+        border-radius: 10px;
+      }
+
+      nav ul.show {
+        display: flex;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .glass-panel {
+        width: 100%;
+      }
+
+      .container {
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-start;
+        font-size: 12px;
+      }
+
+      .footer-bottom a {
+        margin: 0 12px 0 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <div class="logo"><a href="index.html"><img src="logo.png" alt="" width="70px"></a></div>
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <ul id="navMenu">
+      <li><a href="About.html">Our Story</a></li>
+      <li><a href="/index.html#WhySection">Why us</a></li>
+      <li><a href="#newsletter">Newsletter</a></li>
+      <li>
+        <a href="#" id="categoryToggle">Categories ▾</a>
+        <div class="dropdown" id="categoryDropdown">
+          <a href="/re/bedroom.html">Bedroom</a>
+          <a href="/re/bathrooom.html">Bathroom</a>
+          <a href="/re/livingroom.html">Living Room</a>
+          <a href="#">Closet Room</a>
+          <a href="/re/hallway.html">Hallway</a>
+          <a href="/re/dining.html">Dining Room</a>
+          <a href="/re/entryway.html">Entryway</a>
+          <a href="/re/home-office.html">Home Office</a>
+          <a href="/re/vanity.html">Vanity Mirrors</a>
+        </div>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <div class="glass-panel">
+      <h1>Contact Us</h1>
+      <p>We'd love to hear from you.</p>
+
+      <form action="#" method="post">
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Your Email" required />
+        <textarea name="message" rows="4" placeholder="Your Message" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+
+
+    </div>
+  </div>
+
+  <!-- Newsletter Signup Section -->
+  <div class="newsletter" id="newsletter">
+    <h2>Ready to Get Our <br>New Stuff?</h2>
+    <div class="newsletter-row">
+      <div class="newsletter-form">
+        <input id="emailInput" type="email" placeholder="Your Email" required />
+        <button type="button" onclick="sendEmail()">Send</button>
+        <p id="error" style="color: red; display: none;">Invalid email</p>
+      </div>
+
+      <div class="newsletter-description">
+        <strong>Stuffs for Homes and Needs</strong><br />
+        We’ll listen to your needs, identify the best approach, and then choose a bespoke suitable mirror that’s right
+        for you.
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Section -->
+  <footer>
+    <div class="footer-section">
+      <h4>About</h4>
+      <ul>
+        <li><a href="About.html">About us</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-section">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="#" id="faqFooter">FAQ</a></li>
+
+      </ul>
+    </div>
+
+    <div class="footer-section">
+      <h4>Social Media</h4>
+      <div class="social-icons">
+        <a href="https://twitter.com/" class="twitter" target="_blank" title="Twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a href="https://www.facebook.com/" class="facebook" target="_blank" title="Facebook">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://www.instagram.com/" class="instagram" target="_blank" title="Instagram">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://pk.linkedin.com/" class="linkedin" target="_blank" title="LinkedIn">
+          <i class="fab fa-linkedin-in"></i>
+            </a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>Copyright © 2025 Mirroc. All Rights Reserved.</span>
+      <span>
+        <a href="#">Terms of Service</a> | <a href="#">Privacy Policy</a>
+      </span>
+    </div>
+  </footer>
+
+  <!-- FAQ Modal for MIRROC -->
+  <div id="faqModal" class="mirroc-modal">
+    <div class="mirroc-modal-content">
+      <span class="close">&times;</span>
+      <h2><i class="bi bi-question-circle-fill"></i> Frequently Asked Questions</h2>
+
+      <div class="faq">
+        <div class="faq-item">
+          <h4 class="faq-question"><i class="bi bi-info-circle"></i> What is this website about?</h4>
+          <div class="faq-answer">
+            MIRROC is a curated collection of luxury mirrors from top local and global brands — for inspiration,
+            discovery, and design reference.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <h4 class="faq-question"><i class="bi bi-cart-x"></i> Can I buy mirrors from here?</h4>
+          <div class="faq-answer">
+            We do not sell mirrors directly. We showcase pieces for viewing and guide you to their official sources.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <h4 class="faq-question"><i class="bi bi-award"></i> How are the mirrors selected?</h4>
+          <div class="faq-answer">
+            Our team handpicks mirrors based on design, quality, craftsmanship, and harmony with modern interiors.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <h4 class="faq-question"><i class="bi bi-box-arrow-up-right"></i> Where can I explore/purchase a mirror?
+          </h4>
+          <div class="faq-answer">
+            Each mirror links to its brand or designer’s original page where you can explore more or purchase.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Alert -->
+  <div id="softAlert" style="position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.7); color: white; padding: 15px 25px; border-radius: 15px;
+    font-size: 16px; font-family: 'Segoe UI', sans-serif; box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    display: none; z-index: 9999; opacity: 0; transition: opacity 0.5s ease;"></div>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById("navMenu").classList.toggle("show");
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const categoryItem = document.querySelector('nav ul li:nth-child(4)');
+      const dropdown = categoryItem.querySelector('.dropdown');
+
+      categoryItem.addEventListener('click', (e) => {
+        e.stopPropagation();
+        dropdown.classList.toggle('show');
+      });
+
+      document.addEventListener('click', () => {
+        dropdown.classList.remove('show');
+      });
+
+      const form = document.querySelector('.glass-panel form');
+      const alertBox = document.getElementById('softAlert');
+
+      function showAlert(message) {
+        alertBox.innerText = message;
+        alertBox.style.display = 'block';
+        alertBox.style.opacity = '1';
+        setTimeout(() => {
+          alertBox.style.opacity = '0';
+          setTimeout(() => {
+            alertBox.style.display = 'none';
+          }, 500);
+        }, 3000);
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        showAlert("Thank you for reaching out to us. We'll be in touch soon!");
+        form.reset();
+      });
+
+      form.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+          const name = form.querySelector('input[name="name"]');
+          const email = form.querySelector('input[name="email"]');
+          const message = form.querySelector('textarea[name="message"]');
+          if (name.value.trim() && email.value.trim() && message.value.trim()) {
+            e.preventDefault();
+            form.dispatchEvent(new Event('submit'));
+          }
+        }
+      });
+    });
+    // footer
+    function sendEmail() {
+      const emailInput = document.getElementById('emailInput');
+      if (emailInput.value.trim() !== "") {
+
+        emailInput.value = ""; // clear the input
+      }
+    }
+
+    function sendEmail() {
+      var email = document.getElementById("emailInput").value;
+      var error = document.getElementById("error");
+
+      if (email.includes("@") && email.includes(".")) {
+        error.style.display = "none";
+        alert("Email sent!");
+        document.getElementById("emailInput").value = "";
+      } else {
+        error.style.display = "block";
+      }
+    }
+
+    const faqModal = document.getElementById('faqModal');
+    const closeBtn = document.querySelector('.close');
+    const faqLinks = [document.getElementById('faqNav'), document.getElementById('faqFooter')];
+
+    faqLinks.forEach(link => {
+      if (link) {
+        link.addEventListener('click', e => {
+          e.preventDefault();
+          faqModal.style.display = 'block';
+        });
+      }
+    });
+
+    closeBtn.onclick = () => faqModal.style.display = 'none';
+    window.onclick = (e) => {
+      if (e.target === faqModal) faqModal.style.display = 'none';
+    };
+
+    const questions = document.querySelectorAll('.faq-question');
+    questions.forEach(q => {
+      q.addEventListener('click', () => {
+        const answer = q.nextElementSibling;
+        const isOpen = answer.style.display === 'block';
+
+        document.querySelectorAll('.faq-answer').forEach(a => a.style.display = 'none');
+        document.querySelectorAll('.faq-question').forEach(q => q.classList.remove('active'));
+
+        if (!isOpen) {
+          answer.style.display = 'block';
+          q.classList.add('active');
+        }
+      });
+    });
+  </script>
+  </script>
+</body>
+
+</html>
